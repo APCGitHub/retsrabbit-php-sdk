@@ -1,0 +1,18 @@
+{
+  "name": "Anecka/retsrabbit",
+  "description": "This is the PHP SDK for RetsRabbit",
+  "require": {
+    "guzzlehttp/guzzle": "~4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.1.3"
+  },
+  "autoload": {
+    "psr-0" : {
+      "Anecka": "src/"
+    },
+		"classmap": [
+			"tests"
+		]
+	}
+}
