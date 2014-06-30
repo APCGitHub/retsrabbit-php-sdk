@@ -1,5 +1,5 @@
 <?php
 require __DIR__.'/src/Anecka/retsrabbit/SplClassLoader.php';
 
-$loader = new SplClassLoader('Anecka', array('../vendor', '../src'));
+$loader = new SplClassLoader('RetsRabbitClient', '../src/Anecka/retsrabbit');
 $loader->register();
