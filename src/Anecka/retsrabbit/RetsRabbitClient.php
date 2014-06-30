@@ -30,7 +30,7 @@ class RetsRabbitClient {
     $body_opts = array_merge($body, ['access_token' => $this->access_token]);
 
     $response = $this->client->get($this->endpoint.$resource, [
-      "body"  => $body_opts
+      "query"  => $body_opts
     ]);
 
     return $response;
