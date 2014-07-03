@@ -25,7 +25,7 @@ The recommended way to install the SDK is through [Composer](http://getcomposer.
 Next update your project's composer.json file to include the SDK
 
 	"require": {
-		"Anecka/retsrabbit": "dev-master"
+		"anecka/retsrabbit": "dev-master"
 	}
 	
 Run `composer install` to install the library, after installing you need to require Composer's autoloader:

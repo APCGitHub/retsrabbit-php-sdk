@@ -1,5 +1,5 @@
 {
-  "name": "Anecka/retsrabbit",
+  "name": "anecka/retsrabbit",
   "description": "This is the PHP SDK for RetsRabbit",
   "require": {
     "guzzlehttp/guzzle": "~4.0"
