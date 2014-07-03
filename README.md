@@ -73,5 +73,41 @@ The return will be a multi-dimensional array. Here's an example
 
 ### Getting metadata for the server
 
+Getting the metadata for a server can be done by using the following method.
 
+	$metadatas = $client->getServerMetadata($server_hash);
+	
+### Running a property search
+
+To run a search for properties, just call the `getSearchListings` method and pass the server hash and an array containing the search parameters. Since fields vary from board to board, you'll need to reference the metadata for your real estate board.
+
+	$params = array(
+			'ListPrice'	=> '90000-95000',
+		);
+	$listings = $client->getSearchListings($server_hash, $params);
+	
+
+The return will be a multi-dimensional of stdClass objects. You can access the listing data and photos by using the `fields` and `photos` attributes.
+
+	foreach($listings as $listing) {
+		echo $listing->fields->MLSNumber;
+		echo $listing->fields->ListPrice;
+		
+		foreach($listing->photos as $photo) {
+			echo $photo->url;
+		}
+	}
+	
+### Getting a single listing
+
+To get a single listing, use the `getListing` method and pass the server hash and the unique MLS id for the listing.
+
+	$listing = $rets_client->getListing('6cb1ab75588f1af22098f4df183cb988', '50077235');
+
+The return will be a single stdClass object.
+
+
+*****
+
+&copy;2014 Anecka, LLC All rights reserved.
 	
