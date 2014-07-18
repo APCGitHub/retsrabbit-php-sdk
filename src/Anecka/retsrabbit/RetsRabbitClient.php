@@ -10,16 +10,18 @@ class RetsRabbitClient {
   var $endpoint = "https://api.retsrabbit.com/";
   var $access_token = "";
   var $client = null;
+  var $assoc;
 
-  public function __construct($access_token = "") {
+  public function __construct($access_token = "", $associate = false) {
     $this->client = new Client;
 
+    $this->assoc = $associate;
     if($access_token != "") $this->setAccessToken($access_token);
   }
 
   public function _obj($response) {
     if($response->getStatusCode() == "200" && $response != null) {
-      $resObj = json_decode($response->getBody());
+      $resObj = json_decode($response->getBody(), $this->assoc);
       return $resObj;
     } else {
       return null;
