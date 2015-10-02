@@ -4,6 +4,7 @@ namespace Anecka\retsrabbit;
 #require __DIR__.'/../../../vendor/autoload.php';
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class RetsRabbitClient {
 
@@ -44,10 +45,16 @@ class RetsRabbitClient {
 
   public function _get($resource, $body = array()) {
     $body_opts = array_merge($body, ['access_token' => $this->access_token]);
+    $response = null;
 
-    $response = $this->client->get($this->endpoint.$resource, [
-      "query"  => $body_opts
-    ]);
+    try {
+        $response = $this->client->get($this->endpoint.$resource, [
+          "query"  => $body_opts
+        ]);
+    } catch(ClientException $e) {
+        $this->hasError = true;
+        $this->errorMsg = $e->getMessage();
+    }
 
     return $response;
   }
