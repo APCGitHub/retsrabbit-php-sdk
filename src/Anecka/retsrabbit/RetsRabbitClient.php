@@ -11,6 +11,8 @@ class RetsRabbitClient {
   var $access_token = "";
   var $client = null;
   var $assoc;
+  var $hasError = false;
+  var $errorMsg = "";
 
   public function __construct($access_token = "", $associate = false) {
     $this->client = new Client;
@@ -21,9 +23,21 @@ class RetsRabbitClient {
 
   public function _obj($response) {
     if($response->getStatusCode() == "200" && $response != null) {
+      $this->hasError = false;
       $resObj = json_decode($response->getBody(), $this->assoc);
       return $resObj;
     } else {
+      $this->hasError = true;
+      $resObj = json_decode($response->getBody, $this->assoc);
+      if($this->assoc) {
+          if(isset($resObj['error']) && sizeof($resObj['error']) > 0) {
+              $this->errorMsg = $resObj['error']['message'];
+          }
+      } else {
+          if(isset($resObj->errors) && sizeof($resObj->errors) > 0) {
+              $this->errorMsg = $resObj->error->message;
+          }
+      }
       return null;
     }
   }
@@ -48,6 +62,14 @@ class RetsRabbitClient {
 
   public function returnClient() {
     return $this->client;
+  }
+
+  public function getHasError() {
+      return $this->hasError;
+  }
+
+  public function getErrorMsg() {
+      return $this->errorMsg;
   }
 
   public function getAccessCode($client_id, $client_secret, $scope = "scope1") {
