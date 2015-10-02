@@ -5,6 +5,7 @@ namespace Anecka\retsrabbit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 class RetsRabbitClient {
 
@@ -23,22 +24,13 @@ class RetsRabbitClient {
   }
 
   public function _obj($response) {
-    if($response->getStatusCode() == "200" && $response != null) {
+    if($response != null && $response->getStatusCode() == "200") {
       $this->hasError = false;
+      $this->errorMsg = "";
+
       $resObj = json_decode($response->getBody(), $this->assoc);
       return $resObj;
     } else {
-      $this->hasError = true;
-      $resObj = json_decode($response->getBody, $this->assoc);
-      if($this->assoc) {
-          if(isset($resObj['error']) && sizeof($resObj['error']) > 0) {
-              $this->errorMsg = $resObj['error']['message'];
-          }
-      } else {
-          if(isset($resObj->errors) && sizeof($resObj->errors) > 0) {
-              $this->errorMsg = $resObj->error->message;
-          }
-      }
       return null;
     }
   }
@@ -52,6 +44,9 @@ class RetsRabbitClient {
           "query"  => $body_opts
         ]);
     } catch(ClientException $e) {
+        $this->hasError = true;
+        $this->errorMsg = $e->getMessage();
+    } catch(ServerException $e) {
         $this->hasError = true;
         $this->errorMsg = $e->getMessage();
     }
