@@ -124,4 +124,16 @@ class RetsRabbitClient {
 
     return $this->_obj($response);
   }
+
+  public function getOpenHousesForListing($server_hash, $listing_id) {
+      $response = $this->_get("v1/$server_hash/open_house/$listing_id");
+
+      return $this->_obj($response);
+  }
+
+  public function getSearchOpenHouses($server_hash, $search) {
+      $response = $this->_get("v1/$server_hash/open_house/search", $search);
+
+      return $this->_obj($response);
+  }
 }
