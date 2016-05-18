@@ -7,6 +7,10 @@ The GitHub repository for the project is here [https://github.com/patpohler/rets
 
 	//New instance of the client
 	$client = new Anecka\retsrabbit\RetsRabbitClient($access_token);
+
+	//If using a custom API endpoint (ex. https://<domain>.retsrabbit.com/api)
+	//If your endpoint is https//api.retsrabbit.com you don't need to set this
+	$client->setEndpoint($endpoint_url);
 	
 	//Get a listing from the MLS w/ an id of '5456655'
 	$listing = $client->getListing($server_id, '5456655');
@@ -34,9 +38,13 @@ Run `composer install` to install the library, after installing you need to requ
 	
 ### Authentication
 
-In order to use the libary, you need to have valid client credentials to Rets Rabbit. You'll need the credentials to create an access token in order to sender requests to the API.
+In order to use the libary, you need to have valid client credentials to Rets Rabbit and an API endpoint URL (usually in the form of https://<domain>.retrabbit.com/api). You'll need the credentials to create an access token in order to sender requests to the API.
 
 	$client = new Anecka\retsrabbit\RetsRabbitClient;
+
+	//If using a custom API endpoint (ex. https://<domain>.retsrabbit.com/api)
+	//If your endpoint is https//api.retsrabbit.com you don't need to set this
+	$client->setEndpoint($endpoint_url);
 	
 	$client->getAccessCode($client_id, $client_secret);
 	
@@ -45,7 +53,7 @@ In order to use the libary, you need to have valid client credentials to Rets Ra
 	
 	/* instantiating the client by passing an access_token */
 	
-	$client = new Anecka\retsrabbit\RetsRabbitClient($_SESSION['access_token']);
+	$client = new Anecka\retsrabbit\RetsRabbitClient($_SESSION['access_token'], $endpoint_url);
 	
 ### Getting a list of servers
 
@@ -109,5 +117,5 @@ The return will be a single stdClass object.
 
 *****
 
-&copy;2014 Anecka, LLC All rights reserved.
+&copy;2016 Anecka, LLC All rights reserved.
 	

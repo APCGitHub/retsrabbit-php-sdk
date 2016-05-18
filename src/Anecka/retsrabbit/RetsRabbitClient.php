@@ -9,6 +9,8 @@ use GuzzleHttp\Exception\ServerException;
 
 class RetsRabbitClient {
 
+  /* if you're using a custom domain: ex https://<domain>.retsrabbit.com, you'll need to set this to https://<domain>.retsrabbit.com/api/
+  using setEndpoint() */
   var $endpoint = "https://api.retsrabbit.com/";
   var $access_token = "";
   var $client = null;
@@ -22,6 +24,7 @@ class RetsRabbitClient {
     $this->assoc = $associate;
     if($access_token != "") $this->setAccessToken($access_token);
   }
+
 
   public function _obj($response) {
     if($response != null && $response->getStatusCode() == "200") {
