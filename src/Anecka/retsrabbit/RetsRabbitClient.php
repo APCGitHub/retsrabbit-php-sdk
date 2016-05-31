@@ -77,7 +77,7 @@ class RetsRabbitClient {
       return $this->errorMsg;
   }
 
-  public function getAccessCode($client_id, $client_secret, $scope = "scope1") {
+  public function getAccessCode($client_id, $client_secret, $scope = "") {
 
     $response = $this->client->post($this->endpoint."oauth/access_token", [
       "body" => [
